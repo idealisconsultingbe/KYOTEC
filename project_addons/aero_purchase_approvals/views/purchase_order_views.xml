@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo><data>
+    <record id="purchase_order_form_approval" model="ir.ui.view">
+        <field name="name">purchase.order.inherited.form.approval</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <button name="button_approve" position="replace" />
+            <button name="button_cancel" position="attributes">
+                <attribute name="context">{"purchase_bypass_check": True}</attribute>
+            </button>
+
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <field name="partner_ref" position="after">
+                <field name="user_id" string="Requester" attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}"/>
+            </field>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" name="action_view_approval_request" type="object" icon="fa-pencil-square" attrs="{'invisible': [('approval_request_count', '=', 0)]}">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value"><field name="approval_request_count"/></span>
+                        <span class="o_stat_text">Approvals</span>
+                    </div>
+                </button>
+            </xpath>
+
+            <label for="date_planned" position="before">
+                <label for="date_initial_delivery"/>
+                <div name="date_initial_delivery_div" class="o_row">
+                    <field name="date_initial_delivery" attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}"/>
+                </div>
+            </label>
+
+            <field name="date_planned" position="attributes">
+                <attribute name="attrs">{}</attribute>
+            </field>
+
+            <xpath expr="//field[@name='order_line']/tree/field[@name='date_planned']" position="after">
+                <field name="date_initial_delivery" optinal="hide"/>
+            </xpath>
+
+            <xpath expr="//div[@name='button_box']" position="after">
+                <field name="show_display_error_message" invisible="1" />
+                <div style="padding:10px; margin:10px;" class="alert alert-danger" attrs="{'invisible': [('show_display_error_message', '=', False)]}" role="alert">
+                    <span class="font-weight-bold d-inline">Error:</span>
+                    <field name="display_error_message" />
+                </div>
+            </xpath>
+        </field>
+    </record>
+</data></odoo>

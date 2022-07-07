@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="refuse_approval_wizard_form">
+        <field name="name">Refuse approval wizard form</field>
+        <field name="model">refusal.approve.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="refusal_message" widget="html" placeholder="Add a message to describe why this approval will be refused" required="1" nolabel="1"/>
+                </group>
+                <footer>
+                    <button string="Refuse" type="object" name="do_confirm" class="btn-primary" />
+                    <button string="Cancel" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record> 
+</odoo>

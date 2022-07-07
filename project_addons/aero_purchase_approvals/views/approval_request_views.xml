@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="aero_approval_purchase_request_view_form_inherit" model="ir.ui.view">
+        <field name="name">aero.approval.purchase.request.view.form.inherit</field>
+        <field name="model">approval.request</field>
+        <field name="inherit_id" ref="approvals.approval_request_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_cancel']" position="attributes">
+                <attribute name="groups">approvals.group_approval_manager</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_confirmed']" position="after">
+                <field name="purchase_order_id"/>
+                <field name="currency_id" invisible="1"/>
+            </xpath>
+            <xpath expr="//page[@name='products']" position="before">
+                <page string="Purchase Order Line" name="purchase_order_line" attrs="{'invisible': [('purchase_order_id', '=', False)]}">
+                    <field name="purchase_order_line_ids" />
+                    <group class="oe_subtotal_footer oe_right">
+                          <field name="purchase_order_amount_untaxed" widget="monetary"/>
+                          <field name="purchase_order_amount_tax" widget="monetary"/>
+                          <field name="purchase_order_amount_total" widget="monetary"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

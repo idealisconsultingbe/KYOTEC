@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Employee -->
+    <record id="view_employee_approval_position_form" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.hr.approval.position</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='department_id']" position="after">
+                 <field name="job_approvals_position_ids" widget="many2many_tags"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

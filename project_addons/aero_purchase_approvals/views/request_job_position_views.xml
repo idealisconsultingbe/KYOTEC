@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- explicit list view definition -->
+    <record id="request_job_approval_position_view_tree" model="ir.ui.view">
+      <field name="name">Request Job Approval Position List</field>
+      <field name="model">request.job.approval.position</field>
+      <field name="arch" type="xml">
+        <tree editable="bottom">
+          <field name="job_approval_position_id"/>
+          <field name="required"/>
+        </tree>
+      </field>
+    </record>
+
+</odoo>

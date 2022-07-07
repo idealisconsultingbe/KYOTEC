@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="aero_approval_purchase_category_view_form_inherit" model="ir.ui.view">
+        <field name="name">aero.approval.purchase.category.view.form.inherit</field>
+        <field name="model">approval.category</field>
+        <field name="inherit_id" ref="approvals.approval_category_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='approver_ids']" position="before">
+                <field name="approval_method" attrs="{'invisible': [('approval_type', '!=', 'purchase_approbation')]}"/>
+                <field name="request_job_approval_position_ids"
+                       attrs="{'invisible': [('approval_method', '!=', 'organization_chart')],'required': [('approval_method', '=', 'organization_chart')]}"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="po_minimum_amount" widget="monetary" attrs="{'invisible': [('approval_type', '!=', 'purchase_approbation')]}"/>
+                <field name="include_vat"/>
+            </xpath>
+            <xpath expr="//field[@name='approver_ids']" position="attributes">
+                <attribute name="attrs">{'invisible': [('approval_method', '=', 'organization_chart'),('approval_type', '==', 'purchase_approbation')]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='approval_minimum']" position="attributes">
+                <attribute name="attrs">{'invisible': [('approval_method', '=', 'organization_chart'),('approval_type', '==', 'purchase_approbation')]}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="aero_approval_purchase_category_view_tree_inherit" model="ir.ui.view">
+        <field name="name">aero.approval.purchase.category.view.tree.inherit</field>
+        <field name="model">approval.category</field>
+        <field name="inherit_id" ref="approvals.approval_category_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                 <field name="sequence" widget="handle"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

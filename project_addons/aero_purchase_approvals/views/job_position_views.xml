@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="job_approval_position_view_tree">
+      <field name="name">Job Approval Position List</field>
+      <field name="model">job.approval.position</field>
+      <field name="arch" type="xml">
+        <tree  editable="bottom">
+          <field name="name"/>
+          <field name="employee_ids" widget="many2many_tags"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="job_approval_position_action">
+      <field name="name">job approval window</field>
+      <field name="res_model">job.approval.position</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- actions -->
+    <menuitem name="Job Approval Position"
+              id="aero_purchase_approvals.job_position"
+              parent="approvals.approvals_menu_config"
+              action="job_approval_position_action"
+    />
+
+  </data>
+</odoo>
