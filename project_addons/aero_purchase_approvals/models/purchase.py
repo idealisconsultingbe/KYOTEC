@@ -25,7 +25,7 @@ class PurchaseOrderLine(models.Model):
         """
         if self._context.get("purchase_bypass_check", False) is False:
             unlock_fields = ["date_planned", "date_order", "product_qty", "state"]
-            qty_unlock_fields = ["taxes_id", "account_analytic_id", "analytic_tag_ids", "product_packaging_id", "cost_center_id"]
+            qty_unlock_fields = ["taxes_id", "account_analytic_id", "analytic_tag_ids", "product_packaging_id"]
 
             for rec in self.filtered(lambda x: x.state in ["to approve"]):
                 cleaned_vals = {key:  vals[key] for key in vals if key in unlock_fields}
@@ -192,8 +192,6 @@ class PurchaseOrder(models.Model):
                 raise UserError("You cannot confirm purchase order without line")
             if order.order_line.filtered(lambda x: x.price_unit == 0 or x.product_qty == 0):
                 raise UserError("You cannot confirm purchase order with no price unit or no null quantity")
-            if order.order_line.filtered(lambda x: not x.cost_center_id):
-                raise UserError("You cannot confirm, there are missing cost centers on PO lines")
 
 
             if order.state not in ['draft', 'sent']:
